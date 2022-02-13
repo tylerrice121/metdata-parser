@@ -1,6 +1,15 @@
 import './App.css';
 import {useState} from 'react'
-function App() {
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+
+function App() {  
 
   const [data, setData] = useState(null);
   const [parse, setParse] = useState([])
@@ -49,34 +58,56 @@ function App() {
     }
   }
 
+  // create MUI table
+
+  let rows = [];
+
+  const createRows = (parse) => {
+    parse.map((r, index) => {
+      rows.push({'id': index + 1, 'Property': r.property, 'Value': r.value})
+    })
+  }
+
+  createRows(parse)
 
   return (
     <div className="App">
       <h1>Metadata Parser</h1>
       <form onSubmit={handleSubmit}>
-        <textarea 
-          name="data" id="data" 
-          cols="30" 
-          rows="10"
-          onChange={handleChange}>
-        </textarea>
-        <input type="submit" name="" value="parse" />
+        <TextField
+          id="outlined-multiline-static"
+          label="Data"
+          name='data'
+          multiline
+          rows={4}
+          defaultValue="Enter Data Here"
+          onChange={handleChange}
+        />
+        <Button variant="outlined" type="submit">Parse</Button>
       </form>
-      {parse.length ?
-        
-        <ul>
-          {parse.map((p, index) =>
-          
-            <li key={index}>{p.property}: {p.value}</li>
-
-          )}
-        </ul>
-
-        :
-
-        <h1>Copy some data to parse</h1>
-        
-      }
+    <TableContainer>
+      <Table aria-label="simple table">
+        <TableHead>
+          <TableRow>
+            <TableCell>ID</TableCell>
+            <TableCell>Property</TableCell>
+            <TableCell>Value</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {rows.map((row) => (
+            <TableRow
+              key={row.id}
+              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+            >
+              <TableCell>{row.id}</TableCell>
+              <TableCell>{row.Property}</TableCell>
+              <TableCell>{row.Value}</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
     </div>
   );
 }
