@@ -18,20 +18,37 @@ function App() {
     event.preventDefault();
     let el = document.createElement('html')
     el.innerHTML = data.data
-    let link = el.getElementsByTagName('link')
-    let meta = el.getElementsByTagName('meta')
+    let meta;
+    let link;
 
-    for (let i = 0; i < meta.length; i++) {
-      let metaValue = meta[i].nextSibling.data.replace(/\n.*/g, '')
+    if (data.data.includes('property')){
+      link = el.getElementsByTagName('link')
+      meta = el.getElementsByTagName('meta')
+      for (let i = 0, j = 0; i < meta.length, j < link.length; i++, j++) {
+        let metaValue = meta[i].nextSibling.data.replace(/\n.*/g, '')
+        
+        arr.push({'property': meta[i].attributes[0].value, 'value': metaValue})
+        arr.push({'property': link[j].attributes.rel.value, 'value': link[j].href})
+        
+        setParse([...arr])
+        
+      }
+    } else if (data.data.includes('content')) {
+      meta = el.getElementsByTagName('meta')
+      for (let i = 0; i < meta.length; i++) {
+        
+        arr.push({'property': meta[i].attributes[0].value, 'value': meta[i].attributes[1].value})
+  
+        setParse([...arr])  
+      }
 
-      arr.push({'property': meta[i].attributes[0].value, 'value': metaValue})
-      arr.push({'property': link[i].attributes.rel.value, 'value': link[i].href})
+    } else {
 
-      setParse([...arr])  
+      setParse([])
+
     }
   }
-  
-  console.log(parse, 'this is parse')
+
 
   return (
     <div className="App">
@@ -48,15 +65,17 @@ function App() {
       {parse.length ?
         
         <ul>
-          <li>{parse[0].property}: {parse[0].value}</li>
-          <li>{parse[1].property}: {parse[1].value}</li>
-          <li>{parse[2].property}: {parse[2].value}</li>
-          <li>{parse[3].property}: {parse[3].value}</li>
+          {parse.map((p, index) =>
+          
+            <li key={index}>{p.property}: {p.value}</li>
+
+          )}
         </ul>
 
         :
-        
+
         <h1>Copy some data to parse</h1>
+        
       }
     </div>
   );
