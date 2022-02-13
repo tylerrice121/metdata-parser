@@ -1,4 +1,5 @@
 import './App.css';
+import { StyledApp } from './styles';
 import {useState} from 'react'
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -71,44 +72,48 @@ function App() {
   createRows(parse)
 
   return (
-    <div className="App">
+    <StyledApp className="App">
       <h1>Metadata Parser</h1>
-      <form onSubmit={handleSubmit}>
-        <TextField
-          id="outlined-multiline-static"
-          label="Data"
-          name='data'
-          multiline
-          rows={4}
-          defaultValue="Enter Data Here"
-          onChange={handleChange}
-        />
-        <Button variant="outlined" type="submit">Parse</Button>
-      </form>
-    <TableContainer>
-      <Table aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell>ID</TableCell>
-            <TableCell>Property</TableCell>
-            <TableCell>Value</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map((row) => (
-            <TableRow
-              key={row.id}
-              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-            >
-              <TableCell>{row.id}</TableCell>
-              <TableCell>{row.Property}</TableCell>
-              <TableCell>{row.Value}</TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
-    </div>
+      <div>
+        <form onSubmit={handleSubmit}>
+          <TextField
+            id="outlined-multiline-static"
+            label="Data"
+            name='data'
+            multiline
+            rows={15}
+            defaultValue="Enter Data Here"
+            onChange={handleChange}
+          />
+          <Button variant="outlined" type="submit">Parse</Button>
+        </form>
+        <div >
+          <TableContainer className='table'>
+            <Table aria-label="simple table">
+              <TableHead>
+                <TableRow>
+                  <TableCell>ID</TableCell>
+                  <TableCell>Property</TableCell>
+                  <TableCell>Value</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {rows.map((row) => (
+                  <TableRow
+                    key={row.id}
+                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                  >
+                    <TableCell>{row.id}</TableCell>
+                    <TableCell>{row.Property}</TableCell>
+                    <TableCell>{row.Value}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </div>
+      </div>
+    </StyledApp>
   );
 }
 
