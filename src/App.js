@@ -10,6 +10,7 @@ import TableRow from '@mui/material/TableRow';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import {MdArrowDownward} from 'react-icons/md';
+import {MdArrowUpward} from 'react-icons/md';
 
 function App() {  
 
@@ -134,10 +135,13 @@ function App() {
       })
       setParse([...parse])
     }
+    togglePropArrow(propToggle)
   }
+  
   // handle value column sorting
   
   const handleValueAscending = (parse) => {
+
     if (valToggle === null || valToggle === false){
       setValToggle(true)
     } else {
@@ -173,8 +177,34 @@ function App() {
       })
       setParse([...parse])
     }
+    toggleValArrow(valToggle)
   }
 
+  // toggle arrows
+
+  const toggleValArrow = (valToggle) => {
+    const valUp = document.getElementById('valueUp');
+    const valDown = document.getElementById('valueDown');
+    if (valToggle === true){
+      valUp.classList.remove('hide')
+      valDown.classList.add('hide')
+    } else if (valToggle === false){
+      valDown.classList.remove('hide')
+      valUp.classList.add('hide')
+    }
+  }
+
+  const togglePropArrow = (propToggle) => {
+    const propUp = document.getElementById('propUp');
+    const propDown = document.getElementById('propDown')
+    if (propToggle === true) {
+      propUp.classList.remove('hide');
+      propDown.classList.add('hide');
+    } else if (propToggle === false){
+      propDown.classList.remove('hide');
+      propUp.classList.add('hide');
+    }
+  }
 
   return (
     <StyledApp className="App">
@@ -205,25 +235,27 @@ function App() {
         </form>
         <div >
           <TableContainer className='table'>
-            <Table aria-label="simple table">
-              <TableHead>
-                <TableRow>
-                  <TableCell style={{ color: '#858688'}}>ID</TableCell>
-                  <TableCell className='arrows'><MdArrowDownward/></TableCell>
-                  <TableCell style={{ color: '#858688'}} onClick={() => handlePropertyAscending(parse)}>Property</TableCell>
-                  <TableCell className='arrows'><MdArrowDownward/></TableCell>
-                  <TableCell style={{ color: '#858688'}} onClick={() => handleValueAscending(parse)}>Value</TableCell>
+            <Table aria-label="simple table" className='simpleTable'>
+              <TableHead className='tableHead'>
+                <TableRow className='tableRow'>
+                  <TableCell className='title id' style={{ color: '#858688'}} align="left">ID</TableCell>
+                  <TableCell className='title property' style={{ color: '#858688'}}>Property</TableCell>
+                  <TableCell id='propDown' className='arrows'  onClick={() => handlePropertyAscending(parse)}><MdArrowDownward/></TableCell>
+                  <TableCell id='propUp' className='arrows hide'  onClick={() => handlePropertyAscending(parse)}><MdArrowUpward/></TableCell>
+                  <TableCell className='title value' style={{ color: '#858688'}} onClick={() => handleValueAscending(parse)}>Value</TableCell>
+                  <TableCell id='valueDown' className='arrows' onClick={() => handleValueAscending(parse)}><MdArrowDownward/></TableCell>
+                  <TableCell id='valueUp' className='arrows hide' onClick={() => handleValueAscending(parse)}><MdArrowUpward/></TableCell>
                 </TableRow>
               </TableHead>
-              <TableBody>
+              <TableBody className='dataRows'>
                 {rows.map((row) => (
-                  <TableRow key={row.id}>
-                    <TableCell>{row.id}</TableCell>
-                    <TableCell>{row.Property}</TableCell>
+                  <TableRow className='dataRow' key={row.id}>
+                    <TableCell className='idRow'>{row.id}</TableCell>
+                    <TableCell className='property'>{row.Property}</TableCell>
                     {row.Value.includes('http') ?
-                    <TableCell><a href={row.Value}>{row.Value}</a></TableCell>
+                    <TableCell className='value'><a href={row.Value}>{row.Value}</a></TableCell>
                     :
-                    <TableCell>{row.Value}</TableCell>
+                    <TableCell className='value'>{row.Value}</TableCell>
                     }
                   </TableRow>
                 ))}

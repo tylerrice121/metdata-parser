@@ -15,6 +15,10 @@ export const StyledApp = styled.div `
         align-items: center;
         width: 500px;
         margin: -11px;
+        @media screen and (max-width: 750px) {
+
+            width: 200px;
+        }
         a{
             font-weight: 300;
             text-decoration: none;
@@ -41,6 +45,7 @@ export const StyledApp = styled.div `
         align-items: center;
         padding: 10px;
         height: 500px;
+        flex-wrap: wrap;
         form{
             width: 600px;
             height: 300px;
@@ -57,6 +62,17 @@ export const StyledApp = styled.div `
             button{
                 margin-top: 10px;
             }
+            @media screen and (max-width: 1200px) {
+                margin: 100px;
+            }
+            @media screen and (max-width: 750px) {
+                margin: 80px;
+                width: 500px;
+            }
+            @media screen and (max-width: 450px) {
+                margin: 80px;
+                width: 350px;
+            }
         }
         .table{
             border: 1px solid #c2c3c5;
@@ -70,12 +86,65 @@ export const StyledApp = styled.div `
             :hover{
                 border: 1px solid #232324;
             }
-            .arrows{
-                width: 10px;
-                text-align: center;
-                padding: 0;
-                padding-top: 5px;
-                color: #858688;
+            @media screen and (max-width: 1200px) {
+                margin-bottom: 20px;
+            }
+            @media screen and (max-width: 750px) {
+                margin: 10px;
+                width: 500px;
+            }
+            @media screen and (max-width: 750px) {
+                margin: 10px;
+                width: 350px;
+            }
+            .simpleTable{
+                display: flex;
+                flex-direction: column;
+                .tableHead{
+                    border: none;
+                    .tableRow{
+                        width: 100%;
+                        display: flex;
+                        flex-direction: row;
+                        border-bottom: 1px solid rgba(224, 224, 224, 1);
+                        align-items: center;
+                        .arrows{
+                            width: 10px;
+                            text-align: center;
+                            padding: 0;
+                            padding-top: 5px;
+                            color: #858688;
+                            border: none;
+                            margin-right: 85px;
+                            :hover{
+                                cursor: pointer;
+                            }
+                        }
+                        .hide{
+                            display: none;
+                        }
+                        .title{
+                            width: 50px;
+                            border: none;
+                        }
+                        .value{
+                            padding-right: 5px;
+                        }
+                        .id{
+                            width: 50px;
+                        }
+                    }
+                }
+                .idRow{
+                    width: 50px;
+                    @media screen and (max-width: 750px) {
+                        padding-right: 50px;
+                    }
+                    @media screen and (max-width: 450px) {
+                        width: 50px;
+                        padding-right: 20px;
+                    }
+                }
             }
         }
     }
