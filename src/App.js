@@ -49,9 +49,8 @@ function App() {
         meta = el.getElementsByTagName('meta');
 
         // push each meta tag to the array
-
         for (let i = 0; i < meta.length; i++) {
-          let metaValue = meta[i].nextSibling.data.replace(/\n.*/g, '')
+          let metaValue = meta[i].nextSibling.data;
           arr.push({'property': meta[i].attributes[0].value, 'value': metaValue})   
         };
         // push the link tags to the array
@@ -68,7 +67,6 @@ function App() {
 
       } else if (data.data.includes('content')) {
         meta = el.getElementsByTagName('meta');
-
         // push all meta tags to array and set the Parse state 
         for (let i = 0; i < meta.length; i++) {
           arr.push({'property': meta[i].attributes[0].value, 'value': meta[i].attributes[1].value});
@@ -107,6 +105,7 @@ function App() {
         <>
           <div className="syntaxError" data-alert-container>
             <h3 className='errorMessage'>Unable to parse data.  Please enter with valid syntax</h3>
+            <a href="http://kb.daisy.org/publishing/docs/metadata/evaluation.html" target='_blank' rel="noreferrer" aria-label="metdata syntax">Click here for examples</a>
           </div>
         </>
         : 

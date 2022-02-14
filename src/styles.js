@@ -11,9 +11,18 @@ export const StyledApp = styled.div `
         align-self: center;
         display: flex;
         justify-content: center;
+        flex-direction: column;
         align-items: center;
         width: 500px;
         margin: -11px;
+        a{
+            font-weight: 300;
+            text-decoration: none;
+            margin-top: 10px;
+            :hover{
+                text-decoration: underline;
+            }
+        }
         .errorMessage{
             margin: 0;
             font-weight: 300;
