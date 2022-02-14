@@ -93,7 +93,7 @@ export const StyledApp = styled.div `
                 margin: 10px;
                 width: 500px;
             }
-            @media screen and (max-width: 750px) {
+            @media screen and (max-width: 450px) {
                 margin: 10px;
                 width: 350px;
             }
@@ -129,11 +129,16 @@ export const StyledApp = styled.div `
                         }
                         .value{
                             padding-right: 5px;
+
                         }
                         .id{
                             width: 50px;
                         }
                     }
+                }
+                .value{
+                    padding-right: 5px;
+                    word-break: break-all;
                 }
                 .idRow{
                     width: 50px;

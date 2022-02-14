@@ -238,19 +238,17 @@ function App() {
             <Table aria-label="simple table" className='simpleTable'>
               <TableHead className='tableHead'>
                 <TableRow className='tableRow'>
-                  <TableCell className='title id' style={{ color: '#858688'}} align="left">ID</TableCell>
                   <TableCell className='title property' style={{ color: '#858688'}}>Property</TableCell>
                   <TableCell id='propDown' className='arrows'  onClick={() => handlePropertyAscending(parse)}><MdArrowDownward/></TableCell>
                   <TableCell id='propUp' className='arrows hide'  onClick={() => handlePropertyAscending(parse)}><MdArrowUpward/></TableCell>
                   <TableCell className='title value' style={{ color: '#858688'}} onClick={() => handleValueAscending(parse)}>Value</TableCell>
-                  <TableCell id='valueDown' className='arrows' onClick={() => handleValueAscending(parse)}><MdArrowDownward/></TableCell>
-                  <TableCell id='valueUp' className='arrows hide' onClick={() => handleValueAscending(parse)}><MdArrowUpward/></TableCell>
+                  <TableCell id='valueDown' className='arrows valArrow' onClick={() => handleValueAscending(parse)}><MdArrowDownward/></TableCell>
+                  <TableCell id='valueUp' className='arrows hide valArrow' onClick={() => handleValueAscending(parse)}><MdArrowUpward/></TableCell>
                 </TableRow>
               </TableHead>
               <TableBody className='dataRows'>
                 {rows.map((row) => (
                   <TableRow className='dataRow' key={row.id}>
-                    <TableCell className='idRow'>{row.id}</TableCell>
                     <TableCell className='property'>{row.Property}</TableCell>
                     {row.Value.includes('http') ?
                     <TableCell className='value'><a href={row.Value}>{row.Value}</a></TableCell>
