@@ -13,79 +13,88 @@ import Button from '@mui/material/Button';
 function App() {  
 
   const [data, setData] = useState(null);
-  const [parse, setParse] = useState([])
+  const [parse, setParse] = useState([]);
+  const [error, setError] = useState(null);
 
   const handleChange = (event) => {
     setData(prevState => ({
       ...prevState,
       [event.target.name]: event.target.value
-    }))
+    }));
+  };
+
+  const invalidSyntax = () => {
+    const message = document.getElementsByClassName('syntaxError');
+    // message.style.color = 'blue';
+    console.log(message)
   }
 
   let arr = [];
   
   const handleSubmit = (event) => {
     event.preventDefault();
-    let el = document.createElement('html')
-    el.innerHTML = data.data
+
+    if (data === null){
+      return
+    } 
+    
+    let el = document.createElement('html');
+    el.innerHTML = data.data;
     let meta;
     let link;
 
     // condition for EPUB 3 Accessibility specification
 
     if (data.data.includes('property')){
-
-      link = el.getElementsByTagName('link')
-      meta = el.getElementsByTagName('meta')
+      link = el.getElementsByTagName('link');
+      meta = el.getElementsByTagName('meta');
 
       // push each meta tag to the array
 
       for (let i = 0; i < meta.length; i++) {
-        let metaValue = meta[i].nextSibling.data.replace(/\n.*/g, '')
-        
-        arr.push({'property': meta[i].attributes[0].value, 'value': metaValue})
-        
-      }
+        let metaValue = meta[i].nextSibling.data.replace(/\n.*/g, '')    
+        arr.push({'property': meta[i].attributes[0].value, 'value': metaValue})    
+      };
       // push the link tags to the array
 
       for (let i = 0; i < link.length; i++) {
-
         arr.push({'property': link[i].attributes.rel.value, 'value': link[i].href})
- 
-      }
+      };
       // set the Parse state 
 
-      setParse([...arr])
+      setParse([...arr]);
+      setError(false)
 
     // condition for EPUB 2 Accessibility specification
 
     } else if (data.data.includes('content')) {
-      meta = el.getElementsByTagName('meta')
+      meta = el.getElementsByTagName('meta');
 
       // push all meta tags to array and set the Parse state 
       for (let i = 0; i < meta.length; i++) {
-        
-        arr.push({'property': meta[i].attributes[0].value, 'value': meta[i].attributes[1].value})
-  
-        setParse([...arr])  
-      }
+        arr.push({'property': meta[i].attributes[0].value, 'value': meta[i].attributes[1].value});
+        setParse([...arr]);  
+        setError(false);
+      };
 
     } else {
 
       // if neither EPUB 2 or EPUB 3 conditions are met - set Parse state to empty array
+      setParse([]);
+      setError(true);
+    };
+  };
 
-      setParse([])
 
-    }
-  }
+
 
   // create rows based on the parse state established in the handleSubmit function
-  
+
   let rows = [];
   
   const createRows = (parse) => {
     parse.map((r, index) => {
-      rows.push({'id': index + 1, 'Property': r.property, 'Value': r.value})
+       return rows.push({'id': index + 1, 'Property': r.property, 'Value': r.value})
     })
   }
 
@@ -94,9 +103,15 @@ function App() {
   return (
     <StyledApp className="App">
       <h1>Metadata Parser</h1>
-      <div>
+      {error === true ?
+        <h3 style={{ color: 'red' }}className="syntaxError">Unable to parse data.  Please enter with valid syntax</h3>
+        : 
+        null
+      }
+      <div className='container'>
         <form onSubmit={handleSubmit}>
           <TextField
+            className='text'
             id="outlined-multiline-static"
             label="Data"
             name='data'
