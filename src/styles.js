@@ -54,7 +54,7 @@ export const StyledApp = styled.div `
             .text{
                 height: 450px;
                 textarea{
-                    font-size: 14px;
+                    font-size: 16px;
                     width: 600px;
                     height: 600px;
                 }
@@ -137,7 +137,7 @@ export const StyledApp = styled.div `
                         }
                         .value{
                             padding-right: 5px;
-                            padding-left: 50px;
+                            padding-left: 35px;
                             @media screen and (max-width: 750px) {
                                 padding-left: 0px;
                             }
