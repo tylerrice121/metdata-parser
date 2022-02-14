@@ -36,51 +36,56 @@ function App() {
       return
     } 
     
-    let el = document.createElement('html');
-    el.innerHTML = data.data;
-    let meta;
-    let link;
+    try{
+      let el = document.createElement('html');
+      el.innerHTML = data.data;
+      let meta;
+      let link;
 
-    // condition for EPUB 3 Accessibility specification
+      // condition for EPUB 3 Accessibility specification
 
-    if (data.data.includes('property')){
-      link = el.getElementsByTagName('link');
-      meta = el.getElementsByTagName('meta');
+      if (data.data.includes('property')){
+        link = el.getElementsByTagName('link');
+        meta = el.getElementsByTagName('meta');
 
-      // push each meta tag to the array
+        // push each meta tag to the array
 
-      for (let i = 0; i < meta.length; i++) {
-        let metaValue = meta[i].nextSibling.data.replace(/\n.*/g, '')    
-        arr.push({'property': meta[i].attributes[0].value, 'value': metaValue})    
+        for (let i = 0; i < meta.length; i++) {
+          let metaValue = meta[i].nextSibling.data.replace(/\n.*/g, '')
+          arr.push({'property': meta[i].attributes[0].value, 'value': metaValue})   
+        };
+        // push the link tags to the array
+
+        for (let i = 0; i < link.length; i++) {
+          arr.push({'property': link[i].attributes.rel.value, 'value': link[i].href})
+        };
+        // set the Parse state 
+
+        setParse([...arr]);
+        setError(false)
+
+      // condition for EPUB 2 Accessibility specification
+
+      } else if (data.data.includes('content')) {
+        meta = el.getElementsByTagName('meta');
+
+        // push all meta tags to array and set the Parse state 
+        for (let i = 0; i < meta.length; i++) {
+          arr.push({'property': meta[i].attributes[0].value, 'value': meta[i].attributes[1].value});
+          setParse([...arr]);  
+          setError(false);
+        };
+      } else {
+        // if neither EPUB 2 or EPUB 3 conditions are met - set Parse state to empty array
+        setParse([]);
+        setError(true);
       };
-      // push the link tags to the array
 
-      for (let i = 0; i < link.length; i++) {
-        arr.push({'property': link[i].attributes.rel.value, 'value': link[i].href})
-      };
-      // set the Parse state 
-
-      setParse([...arr]);
-      setError(false)
-
-    // condition for EPUB 2 Accessibility specification
-
-    } else if (data.data.includes('content')) {
-      meta = el.getElementsByTagName('meta');
-
-      // push all meta tags to array and set the Parse state 
-      for (let i = 0; i < meta.length; i++) {
-        arr.push({'property': meta[i].attributes[0].value, 'value': meta[i].attributes[1].value});
-        setParse([...arr]);  
-        setError(false);
-      };
-
-    } else {
-
-      // if neither EPUB 2 or EPUB 3 conditions are met - set Parse state to empty array
+      // if we are unable to read metadata then an error will throw to the user suggesting different syntax
+    } catch (error) {
       setParse([]);
       setError(true);
-    };
+    }
   };
 
   // create rows based on the parse state established in the handleSubmit function
@@ -136,7 +141,11 @@ function App() {
                   <TableRow key={row.id}>
                     <TableCell>{row.id}</TableCell>
                     <TableCell>{row.Property}</TableCell>
+                    {row.Value.includes('http') ?
+                    <TableCell><a href={row.Value}>{row.Value}</a></TableCell>
+                    :
                     <TableCell>{row.Value}</TableCell>
+                    }
                   </TableRow>
                 ))}
               </TableBody>
