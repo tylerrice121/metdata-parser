@@ -236,12 +236,13 @@ function App() {
         <div >
           <TableContainer className='table'>
             <Table aria-label="simple table" className='simpleTable'>
+            <caption className="caption">Parsed Data</caption>
               <TableHead className='tableHead'>
                 <TableRow className='tableRow'>
-                  <TableCell className='title property' style={{ color: '#858688'}}>Property</TableCell>
+                  <TableCell className='title property' style={{ color: '#858688'}} scope='col'>Property</TableCell>
                   <TableCell id='propDown' className='arrows propArrow'  onClick={() => handlePropertyAscending(parse)}><MdArrowDownward/></TableCell>
                   <TableCell id='propUp' className='arrows hide propArrow'  onClick={() => handlePropertyAscending(parse)}><MdArrowUpward/></TableCell>
-                  <TableCell className='title value' style={{ color: '#858688'}} onClick={() => handleValueAscending(parse)}>Value</TableCell>
+                  <TableCell className='title value' style={{ color: '#858688'}} onClick={() => handleValueAscending(parse)} scope='col'>Value</TableCell>
                   <TableCell id='valueDown' className='arrows valArrow' onClick={() => handleValueAscending(parse)}><MdArrowDownward/></TableCell>
                   <TableCell id='valueUp' className='arrows hide valArrow' onClick={() => handleValueAscending(parse)}><MdArrowUpward/></TableCell>
                 </TableRow>

@@ -83,6 +83,10 @@ export const StyledApp = styled.div `
             align-items: flex-start;
             width: 700px;
             height: 495px;
+            .caption{
+                align-self: center;
+                text-decoration: underline;
+            }
             :hover{
                 border: 1px solid #232324;
             }
