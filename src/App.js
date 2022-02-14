@@ -9,12 +9,15 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import {MdArrowDownward} from 'react-icons/md';
 
 function App() {  
 
   const [data, setData] = useState(null);
   const [parse, setParse] = useState([]);
   const [error, setError] = useState(null);
+  const [propToggle, setPropToggle] = useState(null);
+  const [valToggle, setValToggle] = useState(null)
 
   const handleChange = (event) => {
     setData(prevState => ({
@@ -24,10 +27,6 @@ function App() {
   };
 
   let arr = [];
-
-  // const handleAlert = (duration = 1000) => {
-  //   const alert = document.
-  // }
   
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -85,18 +84,97 @@ function App() {
       setError(true);
     }
   };
-
-  // create rows based on the parse state established in the handleSubmit function
-
+  
   let rows = [];
   
+  // create rows based on the parse state established in the handleSubmit function
   const createRows = (parse) => {
     parse.map((r, index) => {
-       return rows.push({'id': index + 1, 'Property': r.property, 'Value': r.value})
+      return rows.push({'id': index + 1, 'Property': r.property, 'Value': r.value})
     })
   }
-
+  
   createRows(parse)
+  
+  // handle property column sorting
+  
+  const handlePropertyAscending = (parse) => {
+    if (propToggle === null || propToggle === false){
+      setPropToggle(true)
+    } else {
+      setPropToggle(false)
+    }
+
+    if (propToggle === true){
+      setParse([])
+      parse.sort(function(a, b) {
+        let propA = a.property.toUpperCase();
+        let propB = b.property.toUpperCase();
+        if (propA > propB) {
+          return -1
+        }
+        if (propA < propB) {
+          return 1
+        }
+        return 0
+      })
+      setParse([...parse])
+    } else if (propToggle === false || propToggle === null){
+      setParse([])
+      parse.sort(function(a, b) {
+        let propA = a.property.toUpperCase();
+        let propB = b.property.toUpperCase();
+        if (propA < propB) {
+          return -1
+        }
+        if (propA > propB) {
+          return 1
+        }
+        return 0
+      })
+      setParse([...parse])
+    }
+  }
+  // handle value column sorting
+  
+  const handleValueAscending = (parse) => {
+    if (valToggle === null || valToggle === false){
+      setValToggle(true)
+    } else {
+      setValToggle(false)
+    }
+
+    if (valToggle === true){
+      setParse([])
+      parse.sort(function(a, b) {
+        let valA = a.value.toUpperCase();
+        let valB = b.value.toUpperCase();
+        if (valA > valB) {
+          return -1
+        }
+        if (valA < valB) {
+          return 1
+        }
+        return 0
+      })
+      setParse([...parse])
+    } else if (valToggle === false || valToggle === null){
+      setParse([])
+      parse.sort(function(a, b) {
+        let valA = a.value.toUpperCase();
+        let valB = b.value.toUpperCase();
+        if (valA < valB) {
+          return -1
+        }
+        if (valA > valB) {
+          return 1
+        }
+        return 0
+      })
+      setParse([...parse])
+    }
+  }
+
 
   return (
     <StyledApp className="App">
@@ -131,8 +209,10 @@ function App() {
               <TableHead>
                 <TableRow>
                   <TableCell style={{ color: '#858688'}}>ID</TableCell>
-                  <TableCell style={{ color: '#858688'}}>Property</TableCell>
-                  <TableCell style={{ color: '#858688'}}>Value</TableCell>
+                  <TableCell className='arrows'><MdArrowDownward/></TableCell>
+                  <TableCell style={{ color: '#858688'}} onClick={() => handlePropertyAscending(parse)}>Property</TableCell>
+                  <TableCell className='arrows'><MdArrowDownward/></TableCell>
+                  <TableCell style={{ color: '#858688'}} onClick={() => handleValueAscending(parse)}>Value</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>

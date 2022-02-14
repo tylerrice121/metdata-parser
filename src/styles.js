@@ -70,6 +70,13 @@ export const StyledApp = styled.div `
             :hover{
                 border: 1px solid #232324;
             }
+            .arrows{
+                width: 10px;
+                text-align: center;
+                padding: 0;
+                padding-top: 5px;
+                color: #858688;
+            }
         }
     }
 `;
