@@ -227,7 +227,7 @@ function App() {
             label="Data"
             name='data'
             multiline
-            rows={15}
+            rows={18}
             defaultValue="Enter Data Here"
             onChange={handleChange}
           />
@@ -239,8 +239,8 @@ function App() {
               <TableHead className='tableHead'>
                 <TableRow className='tableRow'>
                   <TableCell className='title property' style={{ color: '#858688'}}>Property</TableCell>
-                  <TableCell id='propDown' className='arrows'  onClick={() => handlePropertyAscending(parse)}><MdArrowDownward/></TableCell>
-                  <TableCell id='propUp' className='arrows hide'  onClick={() => handlePropertyAscending(parse)}><MdArrowUpward/></TableCell>
+                  <TableCell id='propDown' className='arrows propArrow'  onClick={() => handlePropertyAscending(parse)}><MdArrowDownward/></TableCell>
+                  <TableCell id='propUp' className='arrows hide propArrow'  onClick={() => handlePropertyAscending(parse)}><MdArrowUpward/></TableCell>
                   <TableCell className='title value' style={{ color: '#858688'}} onClick={() => handleValueAscending(parse)}>Value</TableCell>
                   <TableCell id='valueDown' className='arrows valArrow' onClick={() => handleValueAscending(parse)}><MdArrowDownward/></TableCell>
                   <TableCell id='valueUp' className='arrows hide valArrow' onClick={() => handleValueAscending(parse)}><MdArrowUpward/></TableCell>
@@ -249,11 +249,11 @@ function App() {
               <TableBody className='dataRows'>
                 {rows.map((row) => (
                   <TableRow className='dataRow' key={row.id}>
-                    <TableCell className='property'>{row.Property}</TableCell>
+                    <TableCell className='propertyData'>{row.Property}</TableCell>
                     {row.Value.includes('http') ?
-                    <TableCell className='value'><a href={row.Value}>{row.Value}</a></TableCell>
+                    <TableCell className='valueData'><a href={row.Value}>{row.Value}</a></TableCell>
                     :
-                    <TableCell className='value'>{row.Value}</TableCell>
+                    <TableCell className='valueData'>{row.Value}</TableCell>
                     }
                   </TableRow>
                 ))}

@@ -16,7 +16,6 @@ export const StyledApp = styled.div `
         width: 500px;
         margin: -11px;
         @media screen and (max-width: 750px) {
-
             width: 200px;
         }
         a{
@@ -44,33 +43,34 @@ export const StyledApp = styled.div `
         justify-content: space-evenly;
         align-items: center;
         padding: 10px;
-        height: 500px;
+        height: 600px;
         flex-wrap: wrap;
         form{
-            width: 600px;
-            height: 300px;
+            width: 700px;
+            height: 600px;
             display: flex;
             flex-direction: column;
             justify-content: center;
             .text{
+                height: 450px;
                 textarea{
                     font-size: 14px;
                     width: 600px;
-                    height: 300px;
+                    height: 600px;
                 }
             }
             button{
                 margin-top: 10px;
             }
             @media screen and (max-width: 1200px) {
-                margin: 100px;
+                margin: 0px;
             }
             @media screen and (max-width: 750px) {
-                margin: 80px;
+                margin: 0px;
                 width: 500px;
             }
             @media screen and (max-width: 450px) {
-                margin: 80px;
+                margin: 0px;
                 width: 350px;
             }
         }
@@ -81,8 +81,8 @@ export const StyledApp = styled.div `
             flex-direction: column;
             justify-content: flex-start !important;
             align-items: flex-start;
-            width: 600px;
-            height: 423px;
+            width: 700px;
+            height: 495px;
             :hover{
                 border: 1px solid #232324;
             }
@@ -120,6 +120,14 @@ export const StyledApp = styled.div `
                                 cursor: pointer;
                             }
                         }
+                        .propArrow{
+                            @media screen and (max-width: 750px) {
+                                margin-right: 75px;
+                            }
+                            @media screen and (max-width: 450px) {
+                                margin-right: 30px;
+                            }
+                        }
                         .hide{
                             display: none;
                         }
@@ -129,16 +137,25 @@ export const StyledApp = styled.div `
                         }
                         .value{
                             padding-right: 5px;
-
+                            padding-left: 50px;
+                            @media screen and (max-width: 750px) {
+                                padding-left: 0px;
+                            }
                         }
                         .id{
                             width: 50px;
                         }
                     }
                 }
-                .value{
+                .valueData{
                     padding-right: 5px;
                     word-break: break-all;
+                    width: 70%;
+                }
+                .propertyData{
+                    padding-right: 5px;
+                    word-break: break-all;
+                    width: 30%;
                 }
                 .idRow{
                     width: 50px;
