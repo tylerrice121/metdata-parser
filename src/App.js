@@ -23,13 +23,11 @@ function App() {
     }));
   };
 
-  const invalidSyntax = () => {
-    const message = document.getElementsByClassName('syntaxError');
-    // message.style.color = 'blue';
-    console.log(message)
-  }
-
   let arr = [];
+
+  // const handleAlert = (duration = 1000) => {
+  //   const alert = document.
+  // }
   
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -85,9 +83,6 @@ function App() {
     };
   };
 
-
-
-
   // create rows based on the parse state established in the handleSubmit function
 
   let rows = [];
@@ -104,7 +99,11 @@ function App() {
     <StyledApp className="App">
       <h1>Metadata Parser</h1>
       {error === true ?
-        <h3 style={{ color: 'red' }}className="syntaxError">Unable to parse data.  Please enter with valid syntax</h3>
+        <>
+          <div className="syntaxError" data-alert-container>
+            <h3 className='errorMessage'>Unable to parse data.  Please enter with valid syntax</h3>
+          </div>
+        </>
         : 
         null
       }
@@ -127,17 +126,14 @@ function App() {
             <Table aria-label="simple table">
               <TableHead>
                 <TableRow>
-                  <TableCell>ID</TableCell>
-                  <TableCell>Property</TableCell>
-                  <TableCell>Value</TableCell>
+                  <TableCell style={{ color: '#858688'}}>ID</TableCell>
+                  <TableCell style={{ color: '#858688'}}>Property</TableCell>
+                  <TableCell style={{ color: '#858688'}}>Value</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
                 {rows.map((row) => (
-                  <TableRow
-                    key={row.id}
-                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                  >
+                  <TableRow key={row.id}>
                     <TableCell>{row.id}</TableCell>
                     <TableCell>{row.Property}</TableCell>
                     <TableCell>{row.Value}</TableCell>

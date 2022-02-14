@@ -4,12 +4,26 @@ export const StyledApp = styled.div `
     display: flex;
     flex-direction: column;
     h1{
-        margin-bottom: -10px !important;
+        margin-top: 50px;
         font-weight: 400;
     }
-    h3{
-        margin-bottom: -20px !important;
-        font-weight: 400;
+    .syntaxError{
+        align-self: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 500px;
+        margin: -11px;
+        .errorMessage{
+            margin: 0;
+            font-weight: 300;
+            pointer-events: none;
+            color: red;
+        }
+        
+    }
+    .hide{
+        opacity: 0
     }
     .container{
         padding-top: none;
@@ -26,6 +40,7 @@ export const StyledApp = styled.div `
             justify-content: center;
             .text{
                 textarea{
+                    font-size: 14px;
                     width: 600px;
                     height: 300px;
                 }
