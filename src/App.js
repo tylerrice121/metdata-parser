@@ -211,7 +211,7 @@ function App() {
       <h1>Metadata Parser</h1>
       {error === true ?
         <>
-          <div className="syntaxError" data-alert-container>
+          <div className="syntaxError" data-alert-container data-testid={'error'}>
             <h3 className='errorMessage'>Unable to parse data.  Please enter with valid syntax</h3>
             <a href="http://kb.daisy.org/publishing/docs/metadata/evaluation.html" target='_blank' rel="noreferrer" aria-label="metdata syntax">Click here for examples</a>
           </div>
@@ -231,7 +231,7 @@ function App() {
             defaultValue="Enter Data Here"
             onChange={handleChange}
           />
-          <Button variant="outlined" type="submit">Parse</Button>
+          <Button data-testid={'button'} variant="outlined" type="submit">Parse</Button>
         </form>
         <div >
           <TableContainer className='table'>
