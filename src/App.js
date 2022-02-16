@@ -90,7 +90,7 @@ function App() {
   
   // create rows based on the parse state established in the handleSubmit function
   const createRows = (parse) => {
-    parse.map((r, index) => {
+    parse.forEach((r, index) => {
       return rows.push({'id': index + 1, 'Property': r.property, 'Value': r.value})
     })
   }
